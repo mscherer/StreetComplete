@@ -238,8 +238,8 @@ public class AddOpeningHoursAdapter extends RecyclerView.Adapter
 		public MonthsViewHolder(View itemView)
 		{
 			super(itemView);
-			monthsText = itemView.findViewById(R.id.months);
-			delete = itemView.findViewById(R.id.delete);
+			monthsText = itemView.findViewById(R.id.monthsLabel);
+			delete = itemView.findViewById(R.id.deleteButton);
 			delete.setVisibility(View.GONE);
 		}
 
@@ -316,9 +316,9 @@ public class AddOpeningHoursAdapter extends RecyclerView.Adapter
 		public WeekdayViewHolder(View itemView)
 		{
 			super(itemView);
-			weekdaysText = itemView.findViewById(R.id.weekday);
-			hoursText = itemView.findViewById(R.id.hours);
-			delete = itemView.findViewById(R.id.delete);
+			weekdaysText = itemView.findViewById(R.id.weekdaysLabel);
+			hoursText = itemView.findViewById(R.id.hoursLabel);
+			delete = itemView.findViewById(R.id.deleteButton);
 			delete.setOnClickListener(v ->
 			{
 				int index = getAdapterPosition();
@@ -361,7 +361,7 @@ public class AddOpeningHoursAdapter extends RecyclerView.Adapter
 	{
 		if(isFirst)
 		{
-			int firstWorkDayIdx = Weekdays.getWeekdayIndex(countryInfo.getFirstDayOfWorkweek());
+			int firstWorkDayIdx = Weekdays.Companion.getWeekdayIndex(countryInfo.getFirstDayOfWorkweek());
 			boolean[] result = new boolean[7];
 			for(int i = 0; i < countryInfo.getRegularShoppingDays(); ++i)
 			{
@@ -374,7 +374,7 @@ public class AddOpeningHoursAdapter extends RecyclerView.Adapter
 
 	private void openSetWeekdaysDialog(Weekdays weekdays, WeekdaysPickerDialog.OnWeekdaysPickedListener callback)
 	{
-		WeekdaysPickerDialog.show(context, weekdays, callback);
+		WeekdaysPickerDialog.INSTANCE.show(context, weekdays, callback);
 	}
 
 	/* ------------------------------------- times select ----------------------------------------*/
@@ -390,7 +390,7 @@ public class AddOpeningHoursAdapter extends RecyclerView.Adapter
 		String startLabel = context.getResources().getString(R.string.quest_openingHours_start_time);
 		String endLabel = context.getResources().getString(R.string.quest_openingHours_end_time);
 
-		new TimeRangePickerDialog(context, callback, startLabel, endLabel, timeRange).show();
+		new TimeRangePickerDialog(context, startLabel, endLabel, timeRange, callback).show();
 	}
 
 	private @NonNull TimeRange getOpeningHoursSuggestion()

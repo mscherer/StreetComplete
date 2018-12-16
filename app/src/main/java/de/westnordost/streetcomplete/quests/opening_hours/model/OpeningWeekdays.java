@@ -69,7 +69,7 @@ public class OpeningWeekdays
 			if(timeRange.loops())
 			{
 				beforeMidnight.add(new TimeRange(timeRange.getStart(), 24*60));
-				afterMidnight.add(new TimeRange(0, timeRange.getEnd(), timeRange.isOpenEnded));
+				afterMidnight.add(new TimeRange(0, timeRange.getEnd(), timeRange.getIsOpenEnded()));
 			} else {
 				beforeMidnight.add(timeRange);
 			}

@@ -52,8 +52,8 @@ public class AddOpeningHoursForm extends AbstractQuestFormAnswerFragment
 
 		initOpeningHoursAdapter(contentView, savedInstanceState);
 
-		Button addTimes = contentView.findViewById(R.id.btn_add);
-		addTimes.setOnClickListener(this::onClickAddButton);
+		Button addTimesButton = contentView.findViewById(R.id.addTimesButton);
+		addTimesButton.setOnClickListener(this::onClickAddButton);
 
 		return view;
 	}
@@ -77,7 +77,7 @@ public class AddOpeningHoursForm extends AbstractQuestFormAnswerFragment
 		openingHoursAdapter = new AddOpeningHoursAdapter(viewData, getActivity(), getCountryInfo());
 		openingHoursAdapter.setDisplayMonths(isAlsoAddingMonths);
 		openingHoursAdapter.registerAdapterDataObserver(new AdapterDataChangedWatcher(this::checkIsFormComplete));
-		RecyclerView openingHoursList = contentView.findViewById(R.id.opening_hours_list);
+		RecyclerView openingHoursList = contentView.findViewById(R.id.openingHoursList);
 		openingHoursList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 		openingHoursList.setAdapter(openingHoursAdapter);
 		openingHoursList.setNestedScrollingEnabled(false);

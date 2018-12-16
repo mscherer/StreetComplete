@@ -80,10 +80,10 @@ public class NumberSystem
 	{
 		ArrayList<CircularSection> result = new ArrayList<>(2);
 		CircularSection upperSection = new CircularSection(range.getStart(), max);
-		if(!upperSection.loops()) result.add(upperSection);
+		if(!upperSection.getLoops()) result.add(upperSection);
 
 		CircularSection lowerSections = new CircularSection(min, range.getEnd());
-		if(!lowerSections.loops()) result.add(lowerSections);
+		if(!lowerSections.getLoops()) result.add(lowerSections);
 		return result;
 	}
 
@@ -93,7 +93,7 @@ public class NumberSystem
 		ArrayList<CircularSection> rangeList = new ArrayList<>();
 		for(CircularSection range : ranges)
 		{
-			if(range.loops())
+			if(range.getLoops())
 			{
 				rangeList.addAll(splitAlongBounds(range));
 			}
