@@ -8,23 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import java.util.Locale
-
 import de.westnordost.streetcomplete.R
 import de.westnordost.streetcomplete.data.meta.CountryInfo
 import de.westnordost.streetcomplete.quests.opening_hours.model.Weekdays
 import de.westnordost.streetcomplete.quests.opening_hours.WeekdaysPickerDialog
 
-// view model
 data class WeekdaysTimesRow(var weekdays: Weekdays, var minutes: Int)
-// model
-data class WeekdaysTimes(var weekdays: Weekdays, var minutesList: MutableList<Int>) {
-
-	override fun toString() =
-		weekdays.toString() + " " + minutesList.joinToString(",") {
-			"%02d:%02d".format(Locale.US, it / 60, it % 60)
-		}
-}
 
 class CollectionTimesAdapter(
 	initialCollectionTimeRows: List<WeekdaysTimesRow>,

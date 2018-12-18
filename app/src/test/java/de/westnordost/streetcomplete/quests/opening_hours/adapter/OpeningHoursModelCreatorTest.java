@@ -184,7 +184,7 @@ public class OpeningHoursModelCreatorTest
 	{
 		List<OpeningMonthsRow> viewData = new ArrayList<>();
 		OpeningMonthsRow omr = new OpeningMonthsRow();
-		List<OpeningWeekdaysRow> owrs = omr.weekdaysList;
+		List<OpeningWeekdaysRow> owrs = omr.getWeekdaysList();
 		owrs.addAll(Arrays.asList(rows));
 		viewData.add(omr);
 		return OpeningHoursModelCreator.create(viewData);

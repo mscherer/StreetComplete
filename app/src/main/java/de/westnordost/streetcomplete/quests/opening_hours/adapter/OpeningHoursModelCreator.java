@@ -28,10 +28,10 @@ public class OpeningHoursModelCreator
 
 	private static OpeningMonths createOpeningMonths(OpeningMonthsRow openingMonthsRow)
 	{
-		List<OpeningWeekdays> weekdaysList = createOpeningWeekdays(openingMonthsRow.weekdaysList);
+		List<OpeningWeekdays> weekdaysList = createOpeningWeekdays(openingMonthsRow.getWeekdaysList());
 		List<List<OpeningWeekdays>> clusters = createWeekdaysClusters(weekdaysList);
 
-		return new OpeningMonths(openingMonthsRow.months, clusters);
+		return new OpeningMonths(openingMonthsRow.getMonths(), clusters);
 	}
 
 	private static List<OpeningWeekdays> createOpeningWeekdays(List<OpeningWeekdaysRow> openingWeekdaysRows)
@@ -41,15 +41,15 @@ public class OpeningHoursModelCreator
 		for (OpeningWeekdaysRow row : openingWeekdaysRows)
 		{
 			// merging rows that have the same weekdays
-			if(last != null && last.weekdays.equals(row.weekdays))
+			if(last != null && last.getWeekdays().equals(row.getWeekdays()))
 			{
-				last.timeRanges.add(row.timeRange);
+				last.getTimeRanges().add(row.getTimeRange());
 			}
 			else
 			{
 				ArrayList<TimeRange> times = new ArrayList<>(1);
-				times.add(row.timeRange);
-				last = new OpeningWeekdays(row.weekdays, times);
+				times.add(row.getTimeRange());
+				last = new OpeningWeekdays(row.getWeekdays(), times);
 				result.add(last);
 			}
 		}

@@ -125,7 +125,7 @@ class AddParkingFeeForm : AbstractQuestFormAnswerFragment() {
 
     override fun isFormComplete() = !isDefiningHours && !getOpeningHoursString().isEmpty()
 
-    private fun getOpeningHoursString() = openingHoursAdapter.createData().joinToString(";")
+    private fun getOpeningHoursString() = openingHoursAdapter.createOpeningMonths().joinToString(";")
 
 
     companion object {

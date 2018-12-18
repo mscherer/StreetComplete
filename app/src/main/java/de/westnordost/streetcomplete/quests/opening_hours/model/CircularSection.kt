@@ -34,6 +34,8 @@ open class CircularSection(val start: Int, val end: Int) : Comparable<CircularSe
         return sb.toString()
     }
 
+    override fun toString() = "$start-$end"
+
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (other !is CircularSection) return false

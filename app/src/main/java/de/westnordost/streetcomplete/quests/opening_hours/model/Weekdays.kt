@@ -10,7 +10,7 @@ import de.westnordost.streetcomplete.R
 
 class Weekdays {
 
-    private val data = BooleanArray(WEEKDAYS_VALUES)
+    private val data = BooleanArray(OSM_ABBR_WEEKDAYS.size)
 
     val selection: BooleanArray get() = Arrays.copyOf(data, data.size)
 
@@ -30,7 +30,7 @@ class Weekdays {
 
     fun toLocalizedString(r: Resources) = toStringUsing(Weekdays.getShortNames(r), ", ", "–")
 
-    private fun toStringUsing(names: Array<String>, separator: String, range: String): String {
+    fun toStringUsing(names: Array<String>, separator: String, range: String): String {
         val sb = StringBuilder()
         var first = true
 
@@ -42,12 +42,8 @@ class Weekdays {
 
             sb.append(names[section.start])
             if (section.start != section.end) {
-                // i.e. Mo-We
-                if (WEEKDAY_NUMBER_SYSTEM.getSize(section) > 2) {
-                    sb.append(range)
-                } else {
-                    sb.append(separator)
-                }// Mo,Tu
+                // i.e. Mo-We vs Mo,Tu
+                sb.append(if (WEEKDAY_NUMBER_SYSTEM.getSize(section) > 2) range else separator)
                 sb.append(names[section.end])
             }
         }
@@ -105,22 +101,21 @@ class Weekdays {
 
     companion object {
         // in ISO 8601 order
-        private val OSM_ABBR_WEEKDAYS = arrayOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "PH")
+        val OSM_ABBR_WEEKDAYS = arrayOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "PH")
         private const val PUBLIC_HOLIDAY = 7
-        private val WEEKDAYS_VALUES = OSM_ABBR_WEEKDAYS.size
 
         private val WEEKDAY_NUMBER_SYSTEM = NumberSystem(0, 6)
 
         fun getNames(r: Resources): Array<String> {
             val symbols = DateFormatSymbols.getInstance()
-            val result = symbols.weekdays.toIso8601Order().copyOf(WEEKDAYS_VALUES)
+            val result = symbols.weekdays.toIso8601Order().copyOf(OSM_ABBR_WEEKDAYS.size)
             result[PUBLIC_HOLIDAY] = r.getString(R.string.quest_openingHours_public_holidays)
             return result.requireNoNulls()
         }
 
         fun getShortNames(r: Resources): Array<String> {
             val symbols = DateFormatSymbols.getInstance()
-            val result = symbols.shortWeekdays.toIso8601Order().copyOf(WEEKDAYS_VALUES)
+            val result = symbols.shortWeekdays.toIso8601Order().copyOf(OSM_ABBR_WEEKDAYS.size)
             result[PUBLIC_HOLIDAY] = r.getString(R.string.quest_openingHours_public_holidays_short)
             return result.requireNoNulls()
         }

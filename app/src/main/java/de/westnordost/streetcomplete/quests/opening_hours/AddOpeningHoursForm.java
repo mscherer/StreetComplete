@@ -1,6 +1,7 @@
 package de.westnordost.streetcomplete.quests.opening_hours;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -113,10 +114,10 @@ public class AddOpeningHoursForm extends AbstractQuestFormAnswerFragment
 		}
 	}
 
-	@Override public void onSaveInstanceState(Bundle outState)
+	@Override public void onSaveInstanceState(@NonNull Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		outState.putByteArray(OPENING_HOURS_DATA, serializer.toBytes(openingHoursAdapter.getViewData()));
+		outState.putByteArray(OPENING_HOURS_DATA, serializer.toBytes(new ArrayList<>(openingHoursAdapter.getMonthsRows())));
 		outState.putBoolean(IS_ADD_MONTHS_MODE, openingHoursAdapter.isDisplayMonths());
 	}
 
@@ -187,6 +188,6 @@ public class AddOpeningHoursForm extends AbstractQuestFormAnswerFragment
 
 	private String getOpeningHoursString()
 	{
-		return TextUtils.join(";", openingHoursAdapter.createData());
+		return TextUtils.join(";", openingHoursAdapter.createOpeningMonths());
 	}
 }
